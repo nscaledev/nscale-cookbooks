@@ -1,0 +1,422 @@
+# The fictional household behind the synthetic corpus.
+# Every document and every eval question is generated from this file, so each
+# answer and the page it appears on are known by construction.
+# All people, companies, addresses and numbers are invented.
+
+seed: 42
+currency: "€"
+as_of: "2026-04-01"   # "today" for relative date questions
+
+household:
+  people:
+    - name: Robin Marlowe
+    - name: Sam Okafor
+      business: Okafor Illustration
+  address: ["Flat 3, 14 Quill Lane", "Lindenford LF2 7QA"]
+  business:
+    name: Okafor Illustration
+    owner: Sam Okafor
+    vat_number: "LF 993 1120 44"
+    iban: "XX00 CALD 0000 1234 5678 90"
+    email: "hello@okafor-illustration.example"
+
+electricity:
+  vendor: BrightSpark Energy
+  account: "BSE-4471-2093"
+  meter: "E19K 004417"
+  vat_rate: 0.05
+  tariffs:
+    - name: SparkFix 12
+      unit_rate: 0.2840      # € per kWh
+      standing: 0.4120       # € per day
+      start: "2024-07-01"
+      end: "2025-06-30"
+    - name: SparkFix 24
+      unit_rate: 0.2615
+      standing: 0.4350
+      start: "2025-07-01"
+      end: "2027-06-30"
+  periods:                   # quarterly bills
+    - {start: "2025-01-01", end: "2025-03-31", kwh: 1180, read_start: 21402}
+    - {start: "2025-04-01", end: "2025-06-30", kwh: 760}
+    - {start: "2025-07-01", end: "2025-09-30", kwh: 640}
+    - {start: "2025-10-01", end: "2025-12-31", kwh: 1020}
+    - {start: "2026-01-01", end: "2026-03-31", kwh: 1240}
+
+gas:
+  vendor: Northfield Gas
+  account: "NFG-30-118-552"
+  meter: "G4 77120"
+  vat_rate: 0.05
+  conversion: 11.14          # kWh per m³
+  rates:
+    - {from: "2024-01-01", unit_rate: 0.0712, standing: 0.3190}
+    - {from: "2026-01-01", unit_rate: 0.0685, standing: 0.3240}
+  periods:
+    - {start: "2025-01-01", end: "2025-03-31", m3: 405, read_start: 8812}
+    - {start: "2025-04-01", end: "2025-06-30", m3: 150}
+    - {start: "2025-07-01", end: "2025-09-30", m3: 62}
+    - {start: "2025-10-01", end: "2025-12-31", m3: 310}
+    - {start: "2026-01-01", end: "2026-03-31", m3: 420}
+
+water:
+  vendor: Lindenford Water
+  account: "LW 0042 7719"
+  bills:                     # half-yearly, billed in advance
+    - {start: "2025-01-01", end: "2025-06-30", bill_date: "2024-12-12", supply: 148.20, wastewater: 131.60, standing: 18.00}
+    - {start: "2025-07-01", end: "2025-12-31", bill_date: "2025-06-11", supply: 148.20, wastewater: 131.60, standing: 18.00}
+    - {start: "2026-01-01", end: "2026-06-30", bill_date: "2025-12-10", supply: 156.90, wastewater: 139.40, standing: 19.50}
+
+telecom:
+  vendor: Nimbus Telecom
+  account: "NMB-7720-4415"
+  plan: "Nimbus Duo 5G + Fibre 500"
+  monthly: 54.00             # incl. VAT
+  vat_rate: 0.20
+  bills:
+    - month: "2025-10"
+      extras: [{item: "Router delivery (one-off)", amount: 9.99}]
+    - month: "2025-11"
+      extras:
+        - {item: "Roaming: USA data pass, 7 days", amount: 15.00}
+        - {item: "Roaming: calls from USA, 42 min", amount: 8.40}
+    - month: "2025-12"
+      extras: [{item: "International calls to Nigeria, 37 min", amount: 6.85}]
+    - month: "2026-01"
+      extras: []
+    - month: "2026-02"
+      extras: [{item: "Data add-on 20 GB (mobile 2)", amount: 10.00}]
+    - month: "2026-03"
+      extras: []
+
+client_invoices:
+  terms_days: {Juniper Books: 45, Calloway Coffee Co.: 30, Meridian Museum: 30, Tidewater Games: 30}
+  vat_rate: 0.20
+  invoices:
+    - {number: OKI-2025-001, date: "2025-01-20", client: Juniper Books, items: [["Cover illustration, 'The Salt Orchard'", 1, 1200.00], ["Spot illustrations", 6, 85.00]]}
+    - {number: OKI-2025-002, date: "2025-02-28", client: Calloway Coffee Co., items: [["Packaging illustration set", 3, 450.00], ["Usage licence, 12 months", 1, 300.00]]}
+    - {number: OKI-2025-003, date: "2025-04-15", client: Meridian Museum, items: [["Exhibition poster series", 4, 380.00], ["Revisions (hours)", 3, 60.00]]}
+    - {number: OKI-2025-004, date: "2025-05-30", client: Tidewater Games, items: [["Character concept sheets", 8, 140.00]]}
+    - {number: OKI-2025-005, date: "2025-06-25", client: Juniper Books, items: [["Cover illustration, 'Low Tide Letters'", 1, 1250.00], ["Map illustration", 1, 420.00]]}
+    - {number: OKI-2025-006, date: "2025-07-31", client: Tidewater Games, items: [["Card art", 20, 65.00], ["Rush fee", 1, 200.00]]}
+    - {number: OKI-2025-007, date: "2025-09-10", client: Calloway Coffee Co., items: [["Seasonal cup design", 2, 520.00]]}
+    - {number: OKI-2025-008, date: "2025-10-05", client: Meridian Museum, items: [["Wayfinding icons", 24, 35.00], ["Workshop day", 1, 480.00]]}
+    - {number: OKI-2025-009, date: "2025-11-14", client: Juniper Books, items: [["Cover illustration, 'A Year of Small Hours'", 1, 1300.00]]}
+    - {number: OKI-2025-010, date: "2025-12-12", client: Tidewater Games, items: [["Key art, 'Harbour Lights' launch", 1, 2200.00]]}
+    - {number: OKI-2026-001, date: "2026-01-22", client: Calloway Coffee Co., items: [["Brand mascot illustration", 1, 1800.00]]}
+    - {number: OKI-2026-002, date: "2026-03-03", client: Meridian Museum, items: [["Annual report illustrations", 10, 150.00]]}
+
+supplier_invoices:
+  - {vendor: Pixelforge Software, number: PF-88213, date: "2025-03-02", vat_rate: 0.20, items: [["Pixelforge Creative Suite, annual licence 2025-26", 1, 499.90]]}
+  - {vendor: The Loom Coworking, number: LOOM-2025-0412, date: "2025-04-01", vat_rate: 0.20, items: [["Hot desk membership, April 2025", 1, 220.00]]}
+  - {vendor: Kestrel Computers, number: KC/INV/55031, date: "2025-06-12", vat_rate: 0.20, scanned: true, items: [["Kestrel Air 14 laptop", 1, 1149.00], ["Pen display tablet 16in", 1, 329.00], ["Extended warranty, 2 years", 1, 89.00]]}
+  - {vendor: Inkwell Print Studio, number: IPS-30419, date: "2025-08-19", vat_rate: 0.20, items: [["Giclee portfolio prints, A3", 15, 18.00]]}
+  - {vendor: The Loom Coworking, number: LOOM-2025-0907, date: "2025-09-01", vat_rate: 0.20, scanned: true, items: [["Hot desk membership, September 2025", 1, 220.00], ["Meeting room overage (hours)", 3, 15.00]]}
+  - {vendor: "Hartley & Finch Accountants", number: HF-2025-118, date: "2025-12-03", vat_rate: 0.20, scanned: true, items: [["Year-end accounts and tax return 2024-25", 1, 650.00]]}
+  - {vendor: The Loom Coworking, number: LOOM-2026-0203, date: "2026-02-01", vat_rate: 0.20, items: [["Hot desk membership, February 2026", 1, 220.00]]}
+  - {vendor: Pixelforge Software, number: PF-91877, date: "2026-03-02", vat_rate: 0.20, items: [["Pixelforge Creative Suite, annual licence 2026-27", 1, 539.90]]}
+
+# Contracts: numbered clauses. A clause may carry questions; its page is
+# recorded at render time and becomes the gold page.
+contracts:
+  - doc_id: contract-nimbus
+    vendor: Nimbus Telecom
+    title: "Nimbus Telecom: Mobile and Broadband Service Agreement"
+    reference: "NMB-7720-4415"
+    doc_date: "2025-09-18"
+    intro: "This agreement is between Nimbus Telecom Ltd ('Nimbus', 'we') and Robin Marlowe ('you') for the services described in the Order Summary."
+    summary:
+      - ["Customer", "Robin Marlowe, Flat 3, 14 Quill Lane, Lindenford LF2 7QA"]
+      - ["Account number", "NMB-7720-4415"]
+      - ["Plan", "Nimbus Duo 5G + Fibre 500 (2 SIMs, fibre 500 Mbps)"]
+      - ["Service start date", "1 October 2025"]
+      - ["Minimum term", "24 months"]
+      - ["Monthly charge", "€54.00 including VAT"]
+    clauses:
+      - title: "1. Services"
+        text: "We will provide two mobile SIM cards with unlimited calls, texts and data in the Home Zone, and a fibre broadband connection with a target download speed of 500 Mbps. Speeds are not guaranteed and depend on line conditions, in-home wiring and network traffic."
+      - title: "2. Minimum term"
+        text: "The minimum term is 24 months from the service start date. After the minimum term the agreement continues on a rolling monthly basis until either party ends it in line with clause 9."
+        questions:
+          - {type: clause, q: "How long is the minimum term on the Nimbus mobile and broadband contract?", a: "24 months from the service start date (1 October 2025)."}
+      - title: "3. Charges and annual price change"
+        text: "The monthly charge is shown in the Order Summary. Each year on 1 April your monthly charge will increase by a fixed amount of €3.00. We will tell you about this change at least 30 days in advance. This fixed increase does not give you a right to end the agreement without paying an early termination charge."
+        questions:
+          - {type: clause, q: "By how much does the Nimbus monthly charge go up each year, and when?", a: "It increases by a fixed €3.00 every year on 1 April."}
+          - {type: date_deadline, q: "When does the Nimbus monthly price go up next, counting from 1 April 2026?", a: "1 April 2027 (it rises by €3.00 every 1 April; the first increase was 1 April 2026).", near_miss: true}
+      - title: "4. Roaming"
+        text: "Use in the Europe Zone is included in your allowance. Use outside the Europe Zone is charged at the rates in our Roaming Price Guide, unless you buy a travel data pass. A travel data pass for the USA costs €15.00 for 7 days."
+        questions:
+          - {type: clause, q: "Is roaming in the Europe Zone included in the Nimbus plan?", a: "Yes, use in the Europe Zone is included in the allowance."}
+      - title: "5. Equipment"
+        text: "We will lend you a Nimbus Hub router for the life of the agreement. The router remains our property. If you do not return it within 30 days of the agreement ending, we may charge you €60.00."
+        questions:
+          - {type: clause, q: "What does Nimbus charge if the router is not returned after the contract ends?", a: "€60.00 if it is not returned within 30 days of the agreement ending."}
+      - title: "6. Fair use"
+        text: "Unlimited allowances are subject to our Fair Use Policy. If use is excessive or unusual, for example running a server or reselling the service, we may contact you and may restrict the service."
+      - title: "7. Payment"
+        text: "You agree to pay monthly by direct debit. Bills are issued on the 1st of each month. If a payment fails, we may charge an administration fee of €7.50 and may suspend outgoing services after 14 days."
+        questions:
+          - {type: clause, q: "What fee does Nimbus charge if a direct debit payment fails?", a: "An administration fee of €7.50."}
+      - title: "8. Faults and service credits"
+        text: "If your broadband stops working and we do not fix it within 2 working days after you report it, we will credit €9.95 for each further calendar day without service."
+        questions:
+          - {type: clause, q: "What compensation do we get if the broadband is down for more than two working days?", a: "A credit of €9.95 for each further calendar day without service, after 2 working days from reporting the fault."}
+      - title: "9. Ending the agreement"
+        text: "You may end this agreement at any time by giving us 30 days' notice. If you end it during the minimum term, you must pay an early termination charge equal to the monthly charges remaining in the minimum term, less 20%."
+        questions:
+          - {type: clause, q: "What is the notice period to cancel the Nimbus contract?", a: "30 days' notice."}
+          - {type: clause, q: "How is the early termination charge calculated if we leave Nimbus during the minimum term?", a: "The monthly charges remaining in the minimum term, less 20%."}
+      - title: "10. Complaints"
+        text: "If you are unhappy, contact our Customer Care team. If we cannot resolve your complaint within 8 weeks, you may refer it to the independent Communications Ombudsman, free of charge."
+      - title: "11. Changes to this agreement"
+        text: "We may change these terms for legal, regulatory or security reasons. Where a change is materially to your disadvantage, other than the price change in clause 3, we will give you 30 days' notice and you may end the agreement without an early termination charge."
+      - title: "12. Governing law"
+        text: "This agreement is governed by the laws of the jurisdiction in which your service address is located."
+
+  - doc_id: contract-lease
+    vendor: Harbourview Lettings
+    title: "Assured Shorthold Tenancy Agreement"
+    reference: "HL-TEN-2025-0381"
+    doc_date: "2025-07-14"
+    intro: "This tenancy agreement is made between Harbourview Lettings, acting for the landlord Ms Petra Vance ('the Landlord'), and Robin Marlowe and Sam Okafor ('the Tenants')."
+    summary:
+      - ["Property", "Flat 3, 14 Quill Lane, Lindenford LF2 7QA"]
+      - ["Tenants", "Robin Marlowe and Sam Okafor (jointly and severally)"]
+      - ["Agreement reference", "HL-TEN-2025-0381"]
+      - ["Term", "12 months, from 1 August 2025 to 31 July 2026"]
+      - ["Rent", "€1,450.00 per calendar month, payable in advance on the 1st"]
+      - ["Deposit", "€2,900.00, held in the Lindenford Deposit Protection Scheme"]
+    clauses:
+      - title: "1. The term"
+        text: "The tenancy is for a fixed term of 12 months starting on 1 August 2025 and ending on 31 July 2026. If neither party gives notice, the tenancy will continue as a periodic tenancy from month to month on the same terms."
+        questions:
+          - {type: date_deadline, q: "When does the fixed term of our flat lease end?", a: "31 July 2026."}
+      - title: "2. Rent"
+        text: "The Tenants will pay the rent of €1,450.00 per calendar month in advance on the 1st day of each month by standing order to the account notified by the agent. Rent is payable in full without deduction."
+        questions:
+          - {type: clause, q: "How much is the monthly rent on the flat?", a: "€1,450.00 per calendar month, payable in advance on the 1st."}
+      - title: "3. Deposit"
+        text: "The Tenants have paid a deposit of €2,900.00. The deposit is held in the Lindenford Deposit Protection Scheme and will be returned within 10 days of the end of the tenancy, less any agreed deductions for damage beyond fair wear and tear, unpaid rent or cleaning."
+        questions:
+          - {type: clause, q: "How soon after the tenancy ends must the deposit be returned?", a: "Within 10 days of the end of the tenancy, less any agreed deductions."}
+      - title: "4. Rent review"
+        text: "The Landlord may review the rent once in any 12-month period, starting no earlier than the end of the fixed term. The Landlord must give at least 2 months' written notice of any increase, and any increase will not exceed the percentage change in the Lindenford Consumer Price Index over the previous 12 months plus 1%."
+        questions:
+          - {type: clause, q: "How much notice must the landlord give before increasing the rent, and what is the cap?", a: "At least 2 months' written notice; the increase cannot exceed the 12-month change in the Lindenford Consumer Price Index plus 1%."}
+      - title: "5. Utilities and council charges"
+        text: "The Tenants are responsible for electricity, gas, water, telephone, broadband and the local council charge for the property during the tenancy. The Tenants must tell the suppliers when the tenancy starts and ends."
+        questions:
+          - {type: clause, q: "Under the lease, who pays for water and the council charge?", a: "The Tenants are responsible for water and the local council charge (as well as electricity, gas, phone and broadband)."}
+      - title: "6. Use of the property"
+        text: "The Tenants will use the property as a private home only. The Tenants may work from home, provided no clients or customers visit the property and no goods are stored for business purposes."
+        questions:
+          - {type: clause, q: "Are we allowed to run the illustration business from the flat?", a: "Working from home is allowed, as long as no clients or customers visit and no goods are stored for business purposes."}
+      - title: "7. Pets"
+        text: "The Tenants must not keep any pet at the property without the Landlord's prior written consent, which will not be unreasonably withheld. If consent is given, the Tenants must have the carpets professionally cleaned at the end of the tenancy."
+        questions:
+          - {type: clause, q: "Can we keep a cat in the flat?", a: "Only with the Landlord's prior written consent, which will not be unreasonably withheld; carpets must then be professionally cleaned at the end.", near_miss: true}
+      - title: "8. Repairs"
+        text: "The Landlord is responsible for repairs to the structure and exterior of the property and to installations for water, gas, electricity, heating and sanitation. The Tenants must report any disrepair promptly and are responsible for minor maintenance such as replacing light bulbs and smoke alarm batteries."
+        questions:
+          - {type: clause, q: "Who is responsible for repairing the boiler and heating at the flat?", a: "The Landlord (repairs to installations for heating, gas, water, electricity and sanitation)."}
+      - title: "9. Access"
+        text: "The Landlord or agent may enter the property at reasonable times to inspect or carry out repairs, after giving at least 24 hours' written notice, except in an emergency."
+        questions:
+          - {type: clause, q: "How much notice must the landlord give before entering the flat for an inspection?", a: "At least 24 hours' written notice, except in an emergency."}
+      - title: "10. Ending the tenancy"
+        text: "The Tenants may end the tenancy at the end of the fixed term, or at any time during a periodic tenancy, by giving at least 2 months' written notice. The Landlord must give at least 3 months' written notice and may only end the tenancy on grounds allowed by law."
+        questions:
+          - {type: clause, q: "How much notice do we have to give to leave the flat?", a: "At least 2 months' written notice (at the end of the fixed term or during a periodic tenancy)."}
+          - {type: date_deadline, q: "If we want to leave the flat when the fixed term ends, by when must we give notice?", a: "By 31 May 2026: at least 2 months' written notice before the fixed term ends on 31 July 2026."}
+      - title: "11. Inventory and condition"
+        text: "An inventory and schedule of condition was agreed on 1 August 2025. At the end of the tenancy the property will be checked against it. The Tenants are not responsible for fair wear and tear."
+      - title: "12. Smoking"
+        text: "The Tenants must not smoke, or allow visitors to smoke, inside the property, including e-cigarettes."
+      - title: "13. Insurance"
+        text: "The Landlord insures the building. The Tenants are responsible for insuring their own contents and personal belongings."
+        questions:
+          - {type: clause, q: "Who insures the building we rent, and who insures our belongings?", a: "The Landlord insures the building; the Tenants insure their own contents and belongings."}
+      - title: "14. Notices"
+        text: "Notices under this agreement must be in writing and may be sent by email to the addresses given by each party at the start of the tenancy."
+      - title: "15. Data protection"
+        text: "The agent will process the Tenants' personal data only to manage the tenancy, in line with its privacy notice."
+
+  - doc_id: contract-home-insurance
+    vendor: Shieldwell Insurance
+    title: "Shieldwell Home Contents Insurance: Policy Schedule and Wording"
+    reference: "SHW-HC-204418"
+    doc_date: "2025-08-22"
+    intro: "This document contains your policy schedule and the policy wording. Please read them together. Words in bold in the wording have the meanings given in the Definitions section."
+    summary:
+      - ["Policyholders", "Robin Marlowe and Sam Okafor"]
+      - ["Policy number", "SHW-HC-204418"]
+      - ["Insured address", "Flat 3, 14 Quill Lane, Lindenford LF2 7QA"]
+      - ["Period of insurance", "1 September 2025 to 31 August 2026"]
+      - ["Contents sum insured", "€45,000"]
+      - ["Annual premium", "€214.80 (paid monthly, €17.90 x 12)"]
+      - ["Optional cover", "Accidental damage: included. Personal possessions away from home: included"]
+    clauses:
+      - title: "1. Definitions"
+        text: "Contents means household goods and personal belongings owned by you or for which you are legally responsible. Valuables means jewellery, watches, art and collections. Business equipment means computers and other equipment used for your trade or profession."
+      - title: "2. What is covered"
+        text: "We will pay for loss of or damage to your contents caused by fire, smoke, storm, flood, escape of water or oil, theft or attempted theft, vandalism, subsidence and impact, up to the contents sum insured."
+      - title: "3. Excesses"
+        text: "You must pay the first part of every claim. The standard excess is €250 for each claim. For claims caused by escape of water the excess is €400. For claims under the accidental damage section the excess is €100."
+        questions:
+          - {type: clause, q: "What is the standard excess on our home contents insurance?", a: "€250 for each claim."}
+          - {type: clause, q: "What excess applies to a claim for escape of water under the contents policy?", a: "€400.", near_miss: true}
+      - title: "4. Limits"
+        text: "The most we will pay for any single item is €1,500 unless it is listed on the schedule. The most we will pay for all valuables in total is €6,000. Bicycles are covered up to €800 each, but only if locked to an immovable object or kept in a locked building."
+        questions:
+          - {type: clause, q: "What is the single item limit on the contents policy?", a: "€1,500 for any single item unless it is listed on the schedule."}
+          - {type: clause, q: "Is a bicycle covered by the contents insurance, and up to how much?", a: "Yes, up to €800 per bicycle, if locked to an immovable object or kept in a locked building."}
+      - title: "5. Personal possessions away from home"
+        text: "We will cover your personal possessions while temporarily away from the home anywhere in the world for up to 60 days in any period of insurance, up to €2,500 in total. Mobile phones are covered up to €600 each."
+        questions:
+          - {type: clause, q: "Are our belongings covered when we travel, and up to what amount?", a: "Yes, personal possessions away from home are covered worldwide for up to 60 days per period, up to €2,500 in total (phones up to €600 each)."}
+      - title: "6. Business equipment"
+        text: "Business equipment kept at the home is covered up to €3,000 in total. Business equipment is not covered while away from the home unless shown on the schedule. Business stock and money belonging to a business are not covered."
+        questions:
+          - {type: clause, q: "Is Sam's work laptop covered by the home insurance?", a: "Business equipment kept at home is covered up to €3,000 in total; it is not covered away from home unless shown on the schedule."}
+      - title: "7. Accidental damage"
+        text: "We will pay for accidental damage to your contents inside the home, such as spilling paint on a carpet or dropping a television. We will not pay for damage caused by pets, by wear and tear, or by cleaning or repairing an item."
+        questions:
+          - {type: clause, q: "Does our home insurance pay for damage caused by pets?", a: "No; accidental damage cover excludes damage caused by pets.", near_miss: true}
+      - title: "8. What is not covered"
+        text: "We will not pay for loss or damage caused by gradual deterioration, moth or vermin, mechanical or electrical breakdown, theft when the home is lent or let, or any loss when the home has been unoccupied for more than 45 consecutive days."
+        questions:
+          - {type: clause, q: "After how many days unoccupied does the home contents cover stop applying?", a: "More than 45 consecutive days."}
+      - title: "9. Making a claim"
+        text: "You must report any claim to us as soon as possible, and theft or vandalism to the police within 24 hours. You must provide proof of ownership and value where we ask for it."
+      - title: "10. Cancellation"
+        text: "You may cancel within 14 days of receiving these documents and receive a full refund if you have not made a claim. After that, you may cancel at any time and we will refund the premium for the unused period, less an administration fee of €25."
+        questions:
+          - {type: clause, q: "If we cancel the contents insurance after the cooling-off period, what fee applies?", a: "An administration fee of €25 (the unused premium is refunded)."}
+      - title: "11. Renewal"
+        text: "We will send your renewal invitation at least 21 days before the end of the period of insurance. If you pay monthly, your policy will renew automatically unless you tell us not to."
+        questions:
+          - {type: clause, q: "Does the home contents policy renew automatically?", a: "Yes, if paid monthly it renews automatically unless you tell Shieldwell not to; the renewal invitation comes at least 21 days before the period ends."}
+      - title: "12. Complaints"
+        text: "If you have a complaint, contact Shieldwell Customer Relations. If we cannot resolve it within 8 weeks, you can refer it to the Financial Services Ombudsman."
+
+  - doc_id: contract-car-insurance
+    vendor: Arrowline Motor Insurance
+    title: "Arrowline Motor Insurance: Certificate and Policy Schedule"
+    reference: "ARW-77310-M"
+    doc_date: "2025-05-02"
+    scanned: true
+    intro: "This schedule forms part of your motor insurance contract with Arrowline Motor Insurance and must be read with the policy booklet."
+    summary:
+      - ["Policyholder", "Robin Marlowe"]
+      - ["Policy number", "ARW-77310-M"]
+      - ["Vehicle", "2019 Corvala Hatch 1.2, registration LF19 KRW"]
+      - ["Cover", "Comprehensive"]
+      - ["Period of insurance", "20 May 2025 to 19 May 2026"]
+      - ["Annual premium", "€612.40"]
+      - ["Named drivers", "Robin Marlowe, Sam Okafor"]
+      - ["No-claims discount", "6 years (protected)"]
+    clauses:
+      - title: "1. Use of the vehicle"
+        text: "Social, domestic and pleasure use, and commuting to a single permanent place of work. Business use is not covered."
+        questions:
+          - {type: clause, q: "Does the car insurance cover using the car for business trips?", a: "No; only social, domestic and pleasure use and commuting to one permanent workplace. Business use is not covered."}
+      - title: "2. Excesses"
+        text: "Compulsory excess: €150. Voluntary excess: €200. Total excess for accidental damage, fire and theft claims: €350. Windscreen and glass excess: €75. Drivers under 25 pay an additional €250."
+        questions:
+          - {type: clause, q: "What is the total excess on the car insurance for an accidental damage claim?", a: "€350 (€150 compulsory plus €200 voluntary)."}
+          - {type: clause, q: "What is the windscreen excess on the car policy?", a: "€75."}
+      - title: "3. Courtesy car"
+        text: "A courtesy car is provided while your vehicle is being repaired by one of our approved repairers. A courtesy car is not provided if your vehicle is stolen or written off."
+      - title: "4. Driving other cars"
+        text: "This policy does not cover the policyholder or named drivers to drive any other vehicle."
+      - title: "5. European cover"
+        text: "Your comprehensive cover applies in the Europe Zone for trips of up to 90 days in total during the period of insurance."
+        questions:
+          - {type: clause, q: "For how long is the car covered when driving abroad in Europe?", a: "Up to 90 days in total during the period of insurance, in the Europe Zone."}
+      - title: "6. Renewal"
+        text: "This policy does not renew automatically. We will send a renewal quotation at least 21 days before the end of the period of insurance."
+        questions:
+          - {type: date_deadline, q: "When does the car insurance run out?", a: "19 May 2026 (period of insurance 20 May 2025 to 19 May 2026); it does not renew automatically."}
+
+  - doc_id: contract-coworking
+    vendor: The Loom Coworking
+    title: "The Loom Coworking: Membership Agreement"
+    reference: "LOOM-M-1187"
+    doc_date: "2025-03-20"
+    intro: "This membership agreement is between The Loom Coworking and Sam Okafor, trading as Okafor Illustration ('the Member')."
+    summary:
+      - ["Member", "Sam Okafor, Okafor Illustration"]
+      - ["Membership number", "LOOM-M-1187"]
+      - ["Membership type", "Hot desk, 24/7 access"]
+      - ["Start date", "1 April 2025"]
+      - ["Monthly fee", "€220.00 plus VAT, invoiced on the 1st of each month"]
+    clauses:
+      - title: "1. Membership"
+        text: "The membership gives the Member use of any available hot desk in the open-plan space, 24 hours a day, 7 days a week, using a personal access card."
+      - title: "2. Meeting rooms"
+        text: "The membership includes 4 hours of meeting room use per calendar month. Unused hours do not roll over. Extra hours are charged at €15.00 per hour plus VAT."
+        questions:
+          - {type: clause, q: "How many meeting room hours are included in the coworking membership each month?", a: "4 hours per calendar month; unused hours do not roll over."}
+          - {type: clause, q: "What does the coworking space charge for extra meeting room hours?", a: "€15.00 per hour plus VAT."}
+      - title: "3. Guests"
+        text: "The Member may bring up to 2 guests at a time between 9:00 and 18:00 on weekdays. Guests must sign in at reception."
+      - title: "4. Ending the membership"
+        text: "Either party may end the membership by giving 1 full calendar month's written notice, ending on the last day of a month. Access cards must be returned on the last day of membership or a €25.00 replacement fee is charged."
+        questions:
+          - {type: clause, q: "What is the notice period for leaving the coworking space?", a: "1 full calendar month's written notice, ending on the last day of a month."}
+      - title: "5. House rules"
+        text: "The Member must follow the house rules displayed in the space, including the quiet-zone rules and the clear-desk policy at the end of each day."
+
+letters:
+  - doc_id: letter-tax
+    vendor: Lindenford Revenue Office
+    title: "Payments on account for the tax year 2025-26"
+    reference: "TR-5521-0938"
+    doc_date: "2025-11-24"
+    scanned: true
+    to: "Sam Okafor"
+    paragraphs:
+      - "Dear Sam Okafor,"
+      - "Your tax reference: TR-5521-0938. Based on your Self Assessment return for 2024-25, your income tax and contributions for that year were €3,680.00. Because more than 80% of this was not collected at source, you must make payments on account towards your tax for 2025-26."
+      - key: poa
+        text: "Your first payment on account of €1,840.00 is due by 31 January 2026. Your second payment on account of €1,840.00 is due by 31 July 2026. Any balancing payment for 2025-26 will be due by 31 January 2027."
+      - "If you think your income for 2025-26 will be lower, you can apply to reduce your payments on account online or by contacting us. Interest is charged on late payments from the due date."
+      - "Yours sincerely, Self Assessment Team, Lindenford Revenue Office"
+    questions:
+      - {type: lookup, key: poa, q: "How much is the first tax payment on account for 2025-26 and when is it due?", a: "€1,840.00, due by 31 January 2026.", value: 1840.00}
+      - {type: date_deadline, key: poa, q: "When is Sam's second payment on account for 2025-26 due?", a: "By 31 July 2026 (€1,840.00)."}
+  - doc_id: letter-bank
+    vendor: Calder Bank
+    title: "Important changes to your Easy Saver interest rate"
+    reference: "CB-SAV-88-3307"
+    doc_date: "2026-01-29"
+    scanned: true
+    to: "Robin Marlowe and Sam Okafor"
+    paragraphs:
+      - "Dear Robin Marlowe and Sam Okafor,"
+      - "Account: Calder Easy Saver, ending 3307."
+      - key: rate
+        text: "We are writing to tell you that the interest rate on your Calder Easy Saver account will change from 3.10% AER to 2.85% AER from 1 March 2026. This follows a change in the central bank base rate."
+      - "You do not need to do anything. If you would prefer to move your money, you can close or switch your account without any charge before or after the change."
+      - "Yours sincerely, Savings Team, Calder Bank"
+    questions:
+      - {type: lookup, key: rate, q: "What will the new interest rate on the Easy Saver account be, and from when?", a: "2.85% AER from 1 March 2026 (down from 3.10%).", value: 2.85}
+
+unanswerable:
+  - "What is the deductible on our pet insurance?"
+  - "What is the total on invoice OKI-2025-014?"
+  - "How much was the electricity bill for April to June 2026?"
+  - "What is the monthly fee for our gym membership?"
+  - "How much life insurance cover do we have?"
+  - "What is the interest rate on our mortgage?"
+  - "How much did we pay for the TV licence in 2025?"
+  - "What is the excess on our travel insurance policy?"
+  - "When does our breakdown cover with the automobile club renew?"
+  - "How much did Sam invoice Harbourview Lettings in 2025?"
+  - "What was the Nimbus bill for September 2025?"
+  - "What is the policy number of our buildings insurance?"
+  - "How much was the Pixelforge licence in 2024?"
+  - "What did the water bill for July to December 2026 cost?"
+  - "What is the account number for our Northfield Gas business account?"
+  - "How much is the monthly charge for our second broadband line?"

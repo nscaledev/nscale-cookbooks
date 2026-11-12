@@ -41,6 +41,7 @@ To make the most of the examples in this cookbook, you'll need an Nscale Serverl
 |:----------:|:-------------:|
 | **RAG** | |
 | [arXiv multimodal RAG](https://github.com/nscaledev/nscale-cookbooks/blob/main/RAG/arxiv_multimodal_rag.ipynb) | Multimodal RAG to chat with arXiv papers |
+| [Admin-docs RAG benchmark](https://github.com/nscaledev/nscale-cookbooks/blob/main/RAG/admin_docs_rag/admin_docs_rag.ipynb) | Answer questions about bills and contracts, and measure which retrieval techniques help |
 
 </div>
 

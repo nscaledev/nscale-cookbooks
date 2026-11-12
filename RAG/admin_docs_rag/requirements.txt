@@ -1,0 +1,22 @@
+# CPU-only. Python 3.12. Versions resolved 2026-11-10.
+openai==3.49.0
+python-dotenv==1.2.4
+pyyaml==6.0.3
+numpy==2.5.4
+pandas==3.1.1
+tabulate==0.10.0
+matplotlib==3.11.2
+pillow==13.0.0
+reportlab==5.1.0
+pymupdf==2.1
+pymupdf4llm==2.1
+docling==2.150.0
+weaviate-client==4.24.1
+torch==2.15.0
+transformers==5.22.2
+sentence-transformers==6.2.0
+ray[data]==2.60.0
+jupytext==1.19.6
+nbconvert==7.17.2
+ipykernel==7.4.0
+nbmake==1.5.5
