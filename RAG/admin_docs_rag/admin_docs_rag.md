@@ -246,14 +246,15 @@ tokenizer = embedder.tokenizer
 print(EMBED_MODEL, embedder.get_embedding_dimension(), "dimensions;", RERANK_MODEL, "loaded")
 ```
 
-## 1. Build the dataset
+## 1. The dataset
 
 **Concept.** You cannot tell whether a RAG change helps without questions whose answers you already know. Public benchmarks rarely look like your documents, and hand-labelling real paperwork is slow and leaks personal data. A synthetic corpus generated from one source file solves both: every fact in every document comes from that file, so every question's answer and the exact page it appears on are known by construction. The risk is that synthetic documents are too clean, so vary layouts, include scans, and add questions the documents cannot answer. See [Anthropic's guide to building evals](https://docs.anthropic.com/en/docs/test-and-evaluate/develop-tests) for the general approach.
 
-**What we do here.** `world.yaml` describes a fictional household: Robin Marlowe and Sam Okafor, who works as a freelance illustrator. It lists their energy, water and phone suppliers, Sam's client and supplier invoices, five contracts and two letters over January 2025 to March 2026. `generate_corpus.py` renders 46 PDFs with ReportLab, each vendor with its own layout, turns 9 of them into degraded image-only scans, and writes 148 questions with the pages that hold each answer.
+**What we do here.** [`dataset/world.yaml`](dataset/world.yaml) describes a fictional household: Robin Marlowe and Sam Okafor, who works as a freelance illustrator. It lists their energy, water and phone suppliers, Sam's client and supplier invoices, five contracts and two letters from January 2025 to March 2026. [`dataset/generate_corpus.py`](dataset/generate_corpus.py) renders it into 46 PDFs in `corpus/`, each vendor with its own layout and 9 of them degraded image-only scans, and writes 148 questions to `questions.jsonl` with the pages that hold each answer. The cell below runs the generator once, in about two seconds; the output is identical on every machine.
 
 ```python
-subprocess.run([sys.executable, "generate_corpus.py"], check=True)
+if not Path("corpus/documents.jsonl").exists():
+    subprocess.run([sys.executable, "dataset/generate_corpus.py"], check=True)
 DOCS = {d["doc_id"]: d for d in map(json.loads, Path("corpus/documents.jsonl").read_text().splitlines())}
 QUESTIONS = [json.loads(line) for line in Path("questions.jsonl").read_text().splitlines()]
 
@@ -316,7 +317,7 @@ ANSWERABLE = [q for q in EVAL_QS if q["type"] != "unanswerable"]
 print(len(EVAL_QS), "questions,", len(ANSWERABLE), "answerable")
 ```
 
-> **Adapt it:** to use your own documents, replace the generator with a folder of PDFs and write 50 to 100 questions by hand, each with the file and page that answers it. That labelling is the most valuable hour you will spend on the project.
+> **Adapt it:** to use your own documents, put your PDFs in `corpus/`, list them in `documents.jsonl`, and write 50 to 100 questions by hand, each with the file and page that answers it. That labelling is the most valuable hour you will spend on the project.
 
 ## 2. Parse the PDFs
 
@@ -1183,7 +1184,7 @@ For administrative documents like these:
 
 You built an assistant that answers questions about a household's bills, invoices, contracts and letters, citing the page, and measured every design choice on the same 148 questions:
 
-- **Build an eval set with known answers.** `world.yaml` and the generator produce 46 documents, 9 of them scans, and 148 questions whose evidence pages are known by construction, including 16 that the documents cannot answer.
+- **Build an eval set with known answers.** `dataset/world.yaml` and its generator produce 46 documents, 9 of them scans, and 148 questions whose evidence pages are known by construction, including 16 that the documents cannot answer.
 - **Compare parsers and retrieval techniques by measurement.** PyMuPDF4LLM beat Docling by 2 to 4 points of Recall@5 while parsing five times faster. On the retrieval ladder, BM25 beat dense retrieval, and the reranker and contextual chunks took Recall@5 from 0.897 (hybrid search, alpha 0.25) to 0.939. Filters and HyDE added nothing on this corpus.
 - **Generate cited answers and grade them.** GLM 5.3 answers 93% of questions correctly with the best retrieval, cites an evidence page 99% of the time, and refuses every unanswerable question. Mistral Large 3 judges, and code checks citations and refusals.
 - **Decide from evidence.** Every remaining error is a retrieval error, mostly totals that need more documents than top-5 retrieval can return. That points to the next improvement: answering aggregate questions from metadata in code.

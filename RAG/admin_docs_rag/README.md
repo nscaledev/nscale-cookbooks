@@ -11,8 +11,7 @@ A runnable cookbook that builds a question-answering assistant over a synthetic 
 | File | Purpose |
 | --- | --- |
 | `admin_docs_rag.md` / `.ipynb` | The cookbook |
-| `world.yaml` | The fictional household: people, vendors, amounts, contract clauses |
-| `generate_corpus.py` | Renders `corpus/*.pdf` (46 documents, 65 pages, 9 scans) and `questions.jsonl` from `world.yaml` |
+| `dataset/` | `world.yaml` (the fictional household) and the generator that renders it into `corpus/` (46 PDFs, 65 pages, 9 scans) and `questions.jsonl` (148 questions with answers and evidence pages). The notebook runs it on first use. |
 | `docker-compose.yml` | Local Weaviate |
 | `requirements.txt` | Pinned, CPU-only dependencies |
 | `check_cookbook.py` | Structure checks for the `.md` / `.ipynb` pair |

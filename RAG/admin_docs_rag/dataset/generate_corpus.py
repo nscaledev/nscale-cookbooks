@@ -8,7 +8,8 @@ Writes:
 Gold evidence is a list of facts the answer needs. Each fact lists the
 (doc_id, page) pairs where it is printed; retrieving any one of them counts.
 
-Usage: python generate_corpus.py [--world world.yaml] [--out .]
+Usage: python dataset/generate_corpus.py [--world dataset/world.yaml] [--out .]
+Defaults write into the cookbook folder, next to the notebook, from any working directory.
 """
 
 import argparse
@@ -25,6 +26,7 @@ import pymupdf as fitz
 import numpy as np
 import yaml
 from PIL import Image, ImageFilter
+from reportlab import rl_config
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_RIGHT
 from reportlab.lib.pagesizes import A4
@@ -42,6 +44,7 @@ from reportlab.platypus import (
 )
 
 EUR = "€"
+rl_config.invariant = 1  # no timestamps or random IDs in the PDFs, so a rebuild is byte-identical
 
 
 # ---------------------------------------------------------------- formatting
@@ -228,7 +231,8 @@ def to_scan(path: Path, rng: random.Random):
         new = out.new_page(width=page.rect.width, height=page.rect.height)
         new.insert_image(new.rect, stream=buf.getvalue())
     src.close()
-    out.save(path, garbage=4, deflate=True)
+    out.set_metadata({})  # no creation timestamp, so a rebuild is byte-identical
+    out.save(path, garbage=4, deflate=True, no_new_id=True)
     out.close()
 
 
@@ -752,8 +756,9 @@ class Corpus:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--world", default="world.yaml")
-    ap.add_argument("--out", default=".")
+    here = Path(__file__).resolve().parent
+    ap.add_argument("--world", default=here / "world.yaml")
+    ap.add_argument("--out", default=here.parent)
     args = ap.parse_args()
     world = yaml.safe_load(open(args.world))
     c = Corpus(world, Path(args.out)).run()
