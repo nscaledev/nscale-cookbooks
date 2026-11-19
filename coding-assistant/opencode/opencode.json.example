@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "nscale/{env:NSCALE_MODEL}",
+  "small_model": "nscale/{env:NSCALE_MODEL}",
+  "enabled_providers": ["nscale"],
+  "share": "disabled",
+  "autoupdate": false,
+  "provider": {
+    "nscale": {
+      "name": "Nscale Serverless",
+      "npm": "@ai-sdk/openai-compatible",
+      "env": ["NSCALE_SERVICE_TOKEN"],
+      "options": {
+        "baseURL": "{env:NSCALE_BASE_URL}",
+        "apiKey": "{env:NSCALE_SERVICE_TOKEN}"
+      },
+      "models": {
+        "{env:NSCALE_MODEL}": {
+          "name": "Nscale coding model",
+          "tool_call": true,
+          "limit": {"context": 32768, "output": 4096}
+        }
+      }
+    }
+  },
+  "permission": {
+    "*": "ask",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow"
+  }
+}

@@ -39,6 +39,8 @@ To make the most of the examples in this cookbook, you'll need an Nscale Serverl
 
 | Cookbook | Description |
 |:----------:|:-------------:|
+| **Coding assistants** | |
+| [OpenCode with Nscale Serverless](./coding-assistant/opencode/README.md) · [Notebook](./coding-assistant/opencode/walkthrough.ipynb) | Configure OpenCode to use Nscale inference and implement a Python feature with local tests (draft; live model validation pending) |
 | **RAG** | |
 | [arXiv multimodal RAG](https://github.com/nscaledev/nscale-cookbooks/blob/main/RAG/arxiv_multimodal_rag.ipynb) | Multimodal RAG to chat with arXiv papers |
 
